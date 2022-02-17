@@ -10,7 +10,8 @@
     <p class="text-right">Jens Jensen 2022</p>
     <div style="margin-top: 2rem">
       <Pokedex />
-      <PokemonInput />
+      <PokemonInput @sendSearchId="searchForPokemon" />
+      <p v-if="getResult">{{ getResult }}</p>
     </div>
   </div>
 </template>
@@ -18,13 +19,52 @@
 <script>
 import PokemonInput from "../components/PokemonInput.vue";
 import Pokedex from "../components/Pokedex.vue";
-export default { components: { PokemonInput, Pokedex } };
+export default {
+  data() {
+    return {
+      getResult: null,
+    };
+  },
+  components: { PokemonInput, Pokedex },
+  methods: {
+    formatResponse(res) {
+      return JSON.stringify(res, null, 2);
+    },
+    async searchForPokemon(pokemonId) {
+      console.log(pokemonId);
+      if (pokemonId) {
+        try {
+          const res = await fetch(
+            `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+          );
+          if (!res.ok) {
+            const message = `An error has occured: ${res.status} - ${res.statusText}`;
+            throw new Error(message);
+          }
+          const data = await res.json();
+          const result = {
+            data: data,
+            status: res.status,
+            statusText: res.statusText,
+            headers: {
+              "Content-Type": res.headers.get("Content-Type"),
+              "Content-Length": res.headers.get("Content-Length"),
+            },
+          };
+          this.getResult = this.formatResponse(result);
+        } catch (err) {
+          this.getResult = err.message;
+        }
+      }
+    },
+  },
+};
 </script>
 
 <style>
 .pokedex-container {
   background-color: #ffcc01;
-  height: 90vh;
+  height: 92vh;
   padding: 0rem 2rem 1rem 2rem;
 }
 

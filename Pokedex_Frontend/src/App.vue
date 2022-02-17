@@ -34,7 +34,8 @@ import HelloWorld from "@/components/HelloWorld.vue";
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-weight: normal;
 }
 
