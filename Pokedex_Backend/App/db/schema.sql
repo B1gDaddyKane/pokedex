@@ -3,10 +3,10 @@ DROP TABLE IF EXISTS trainer;
 
 CREATE TABLE pokemon
 (
-    id INTEGER PRIMARY KEY,
-    pokeid INTEGER,
+    pokeid INTEGER PRIMARY KEY,
     pokename TEXT UNIQUE NOT NULL,
-    poketype TEXT NOT NULL
+    firsttype TEXT NOT NULL,
+    secondtype TEXT
 );
 
 CREATE TABLE trainer

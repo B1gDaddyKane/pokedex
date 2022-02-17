@@ -11,7 +11,7 @@ from App.db.db import get_db
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
-@bp.route('/register', methods='POST')
+@bp.route('/register', methods=['POST'])
 def register():
     username = request.form['username']
     password = request.form['password']
@@ -37,7 +37,7 @@ def register():
     flash(error)
 
 
-@bp.route('/login', methods='POST')
+@bp.route('/login', methods=['POST'])
 def login():
     username = request.form['username']
     password = request.form['password']
