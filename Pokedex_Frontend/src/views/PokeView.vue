@@ -30,12 +30,12 @@ export default {
     formatResponse(res) {
       return JSON.stringify(res, null, 2);
     },
-    async searchForPokemon(pokemonId) {
-      console.log(pokemonId);
-      if (pokemonId) {
+    async searchForPokemon(pokemonIdEvent) {
+      console.log(pokemonIdEvent);
+      if (pokemonIdEvent) {
         try {
           const res = await fetch(
-            `https://pokeapi.co/api/v2/pokemon/${pokemonId}`
+            `http://localhost:5000/pokemon/${pokemonIdEvent}`
           );
           if (!res.ok) {
             const message = `An error has occured: ${res.status} - ${res.statusText}`;
