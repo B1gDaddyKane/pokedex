@@ -38,7 +38,7 @@ def json_response(data, status=200):
 # @bp.route('/create', methods=['GET'])
 # def create_pokemon():
 #     db = get_db()
-#     with open('C:/Users/jcj.it-minds.dk/it-minds/pokedex/Pokedex_Backend/App/services/pokedex.json', encoding="utf8") as data_file:
+#     with open('C:/Users/nsh.it-minds.dk/Desktop/Test/pokedex/pokedex/Pokedex_Backend/App/services/pokedex.json', encoding="utf8") as data_file:
 #         data = json.load(data_file)
 #         for p in data:
 #             if len(p['type']) < 2:

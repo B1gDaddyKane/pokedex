@@ -4,20 +4,21 @@
       v-model="pokemonId"
       placeholder="Search for a Pokemon by it's ID"
       type="number"
-      :class="{ 'pokemon-input': !idTooLong, 'pokemon-input-error': idTooLong }"
+      v-on:keyup.enter="passId"
+      :class="['pokemon-input', { 'pokemon-input-error': lastPokemon }]"
     />
     <button
-      :disabled="idTooLong === true"
+      :disabled="lastPokemon === true"
       v-on:click="passId"
       :class="{
-        'search-button': !idTooLong,
-        'search-button-disabled': idTooLong,
+        'search-button': !lastPokemon,
+        'search-button-disabled': lastPokemon,
       }"
     >
       GO!
     </button>
-    <p v-if="idTooLong" class="error-text">
-      There is no Pokemon ID with more than 3 characters!
+    <p v-if="lastPokemon" class="error-text">
+      There is no Pokemon with ID larger than 809!
     </p>
   </div>
 </template>
@@ -26,7 +27,7 @@ export default {
   data() {
     return {
       pokemonId: "",
-      idTooLong: false,
+      lastPokemon: false,
     };
   },
   emits: ["sendSearchId"],
@@ -38,9 +39,11 @@ export default {
   },
   watch: {
     pokemonId(newPokemonID) {
-      if (newPokemonID.toString().length > 3) {
-        this.idTooLong = true;
-      } else this.idTooLong = false;
+      if (newPokemonID > 809) {
+        this.lastPokemon = true;
+      } else {
+        this.lastPokemon = false;
+      }
     },
   },
 };
@@ -48,29 +51,26 @@ export default {
 <style>
 .pokemon-input {
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 1em;
+  width: 85%;
   height: 40px;
-  width: 90%;
+  color: #1b5eac;
+  font-size: 1.5em;
+  font-weight: bold;
   border: 3px solid #1b5eac;
   border-radius: 5px 0 0 5px;
   background: #eee;
 }
 
 .pokemon-input-error {
-  font-weight: bold;
-  text-align: center;
-  margin-top: 1rem;
-  height: 40px;
-  width: 90%;
-  border: 3px solid red;
-  border-radius: 5px 0 0 5px;
-  background: #eee;
   color: red;
+  border: 3px solid red;
 }
 
 .search-button {
+  width: 15%;
   height: 40px;
-  width: 10%;
+  font-size: 1.5em;
   font-weight: bold;
   color: white;
   background: #1b5eac;
@@ -85,14 +85,15 @@ export default {
 }
 
 .search-button-disabled {
+  width: 15%;
   height: 40px;
-  width: 10%;
+  font-size: 1.5em;
   font-weight: bold;
   color: white;
   cursor: not-allowed;
   opacity: 0.8;
-  background: red;
-  border: 3px solid red;
+  background: grey;
+  border: 3px solid grey;
   border-radius: 0 5px 5px 0;
 }
 
