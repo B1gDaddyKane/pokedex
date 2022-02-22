@@ -6,8 +6,7 @@ from flask_cors import CORS
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'pokedex.sqlite')
+        SECRET_KEY='dev'
     )
     CORS(app)
 
@@ -24,9 +23,6 @@ def create_app(test_config=None):
     @app.route('/test')
     def test():
         return 'Test'
-
-    from .db import db
-    db.init_app(app)
 
     from .services import auth
     app.register_blueprint(auth.bp)
