@@ -1,8 +1,8 @@
 import pyodbc
+import os
 
-import click
-from flask import current_app, g
-from flask.cli import with_appcontext
+from flask import g
+from azure.storage.blob import BlobServiceClient
 
 
 def get_db():
@@ -24,3 +24,9 @@ def close_db(e=None):
 
     if db is not None:
         db.close()
+
+
+def get_blobclient():
+    blob_client = BlobServiceClient.from_connection_string(
+        'DefaultEndpointsProtocol=https;AccountName=blobbyblobblob;AccountKey=BU8NtdAV272TeSdamqsxPtiF8mN1ReU5qgCZ73AYcJzLEdICXQugeAT66YA7AIQuCRjoBS1Yuncx5f9njqmg0Q==;EndpointSuffix=core.windows.net')
+    return blob_client
