@@ -1,10 +1,11 @@
 from flask import (
     Blueprint, json
 )
+from random import randrange
 
 from werkzeug.exceptions import abort
 
-from App.db.db import get_db, get_blobclient
+from App.db.db import get_db
 
 
 bp = Blueprint('pokemon', __name__)
@@ -24,6 +25,13 @@ def get_pokemon(id):
     image = 'https://blobbyblobblob.blob.core.windows.net/pokeimages/images/{}.png'.format(
         f'{id:03}')
     return json_response(list(pokemon), image)
+
+
+@bp.route('/pokemon/random/<int:range>', methods=['GET'])
+def whos_dat_pokemon(range):
+    id = randrange(range)
+    pokemon = get_pokemon(id)
+    return pokemon
 
 
 def json_response(data, image, status=200):
