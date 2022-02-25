@@ -5,6 +5,12 @@
       <div class="pokedex-dot-red"></div>
       <div class="pokedex-dot-yellow"></div>
       <div class="pokedex-dot-green"></div>
+      <div class="pokedex-picture-frame type-container">
+        <img
+          class="pokedex-pokemon-picture"
+          :src="this.pokemon['data']['image']"
+        />
+      </div>
     </div>
     <div class="data-box">
       <h1 class="pokedex-header">POKEDEX RECORD:</h1>
@@ -81,6 +87,15 @@ export default {
 };
 </script>
 <style>
+.pokedex-picture-frame {
+  border-radius: 10px 0 0 10px;
+  position: "relative";
+}
+
+.pokedex-pokemon-picture {
+  width: 100%;
+}
+
 .parent {
   display: grid;
   grid-template-columns: 1fr 1fr;
