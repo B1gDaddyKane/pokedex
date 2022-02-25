@@ -22,8 +22,7 @@ def get_pokemon(id):
     if pokemon is None:
         abort(404, f"Pokemon id: {id} does not exist")
 
-    image = 'https://blobbyblobblob.blob.core.windows.net/pokeimages/images/{}.png'.format(
-        f'{id:03}')
+    image = f'https://blobbyblobblob.blob.core.windows.net/pokeimages/images/{id:03}.png'
     return json_response(list(pokemon), image)
 
 

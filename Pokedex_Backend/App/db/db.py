@@ -1,14 +1,14 @@
 import pyodbc
-import os
 
 from flask import g
-from azure.storage.blob import BlobServiceClient
 
 
 def get_db():
     if 'db' not in g:
+        print(pyodbc.drivers())
+        driver = pyodbc.drivers()[-1]
         g.db = pyodbc.connect(
-            r'Driver={SQL Server Native Client 11.0};'
+            f'Driver={driver};'
             r'Server=play-server.database.windows.net;'
             r'Database=pokedex_db;'
             r'Trusted_Connection=no;'
@@ -24,9 +24,3 @@ def close_db(e=None):
 
     if db is not None:
         db.close()
-
-
-def get_blobclient():
-    blob_client = BlobServiceClient.from_connection_string(
-        'DefaultEndpointsProtocol=https;AccountName=blobbyblobblob;AccountKey=BU8NtdAV272TeSdamqsxPtiF8mN1ReU5qgCZ73AYcJzLEdICXQugeAT66YA7AIQuCRjoBS1Yuncx5f9njqmg0Q==;EndpointSuffix=core.windows.net')
-    return blob_client
